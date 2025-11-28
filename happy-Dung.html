@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>🎉 Sinh Nhật Dũng</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --accent: #ff6b9d;
+  --dark: #0a0e27;
+  --darker: #050812;
+  --light: #f0f4ff;
+  --glow: 0 0 30px rgba(255, 107, 157, 0.3);
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, var(--darker) 0%, #1a1f3a 100%);
+  color: var(--light);
+  overflow: hidden;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.container {
+  width: 100%;
+  max-width: 700px;
+  animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.panel {
+  background: linear-gradient(135deg, rgba(255, 107, 157, 0.1) 0%, rgba(100, 150, 255, 0.1) 100%);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 107, 157, 0.3);
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.panel:hover {
+  box-shadow: var(--glow), 0 8px 32px rgba(0, 0, 0, 0.5);
+  border-color: rgba(255, 107, 157, 0.6);
+}
+
+h2 {
+  font-size: 28px;
+  margin-bottom: 25px;
+  background: linear-gradient(135deg, var(--accent), #64a6ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.form-row {
+  display: flex;
+  gap: 12px;
+  margin: 15px 0;
+}
+
+input {
+  flex: 1;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1.5px solid rgba(255, 107, 157, 0.3);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--light);
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: rgba(255, 107, 157, 0.1);
+  box-shadow: 0 0 15px rgba(255, 107, 157, 0.2);
+}
+
+input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+button {
+  padding: 14px 28px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, var(--accent), #ff8fab);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 107, 157, 0.3);
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(255, 107, 157, 0.5);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+#countPanel, #heartSection { display: none; }
+
+#loginMsg {
+  font-size: 13px;
+  margin-top: 12px;
+  color: #ff6b9d;
+  min-height: 18px;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-10px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+#countdown {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 20px 0;
+  color: #64a6ff;
+  letter-spacing: 0.5px;
+}
+
+#count {
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 28px;
+  animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+canvas {
+  background: linear-gradient(135deg, rgba(0,0,0,0.3), rgba(100,150,255,0.05));
+  border-radius: 16px;
+  display: block;
+  margin: 20px auto;
+  width: 100%;
+  height: 500px;
+  border: 1px solid rgba(255, 107, 157, 0.2);
+}
+
+.centered-msg {
+  position: absolute;
+  left: 50%;
+  top: 30px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 10;
+}
+
+#centerText {
+  font-family: 'Arial', 'Helvetica';
+  font-weight: 800;
+  font-size: 32px;
+  letter-spacing: 2px;
+  background: linear-gradient(90deg, #ff6b9d, #ffd86b, #64a6ff, #ff6b9d);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 4s ease infinite;
+  text-shadow: 0 0 30px rgba(255, 107, 157, 0.3);
+  filter: drop-shadow(0 0 10px rgba(255, 107, 157, 0.3));
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% center; }
+  50% { background-position: 100% center; }
+  100% { background-position: 0% center; }
+}
+
+.small-muted {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 15px;
+  letter-spacing: 0.5px;
+}
+
+.heart-emoji {
+  font-size: 48px;
+  animation: heartBeat 1.2s ease-in-out infinite;
+  margin: 15px 0;
+  display: block;
+}
+
+@keyframes heartBeat {
+  0%, 100% { transform: scale(1); }
+  25% { transform: scale(1.1); }
+  50% { transform: scale(1.2); }
+  75% { transform: scale(1.1); }
+}
+
+@media (max-width: 600px) {
+  .panel { padding: 30px 20px; }
+  h2 { font-size: 24px; }
+  #centerText { font-size: 24px; }
+  .form-row { flex-direction: column; }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<!-- LOGIN PANEL -->
+<div id="loginPanel" class="panel">
+  <h2>✨ Chào Mừng ✨</h2>
+  <p style="color: rgba(255,255,255,0.7); margin-bottom: 20px; font-size: 14px;">Vui lòng đăng nhập để tiếp tục</p>
+  <div class="form-row">
+    <input id="username" placeholder="👤 Tên đăng nhập" value="Dung"/>
+  </div>
+  <div class="form-row">
+    <input id="password" placeholder="🔐 Mật khẩu" type="password"/>
+    <button id="loginBtn">Đăng Nhập</button>
+  </div>
+  <div id="loginMsg"></div>
+</div>
+
+<!-- COUNTDOWN PANEL -->
+<div id="countPanel" class="panel">
+  <h2>⏳ Chờ Chút Nữa</h2>
+  <div id="countdown">
+    <p style="font-size: 16px; color: rgba(255,255,255,0.7); margin-bottom: 15px;">Bất ngờ sắp đến...</p>
+    <span id="count">10</span>
+    <p style="font-size: 16px; color: rgba(255,255,255,0.7); margin-top: 15px;">giây</p>
+  </div>
+  <div class="small-muted">🎉 Chuẩn bị để bị bất ngờ!</div>
+</div>
+
+<!-- HEART SECTION -->
+<div class="panel" id="heartSection" style="position:relative;">
+  <div class="centered-msg">
+    <div id="centerText">🎂 CHÚC DŨNG SINH NHẬT VUI VẺ 🎂</div>
+  </div>
+  <span class="heart-emoji">❤️</span>
+  <canvas id="heartCanvas"></canvas>
+  <div class="small-muted">💝 Sinh nhật vui vẻ ! 💝</div>
+</div>
+
+</div>
+
+<script>
+const DEMO_USER = "Dung";
+const DEMO_PASS = "Dung";
+
+document.getElementById("loginBtn").onclick = () => {
+  const u = document.getElementById('username').value.trim();
+  const p = document.getElementById('password').value;
+  const msg = document.getElementById('loginMsg');
+  
+  if (u === DEMO_USER && p === DEMO_PASS) {
+    document.getElementById("loginPanel").style.display = "none";
+    document.getElementById("countPanel").style.display = "block";
+    startCountdown(10);
+  } else {
+    msg.textContent = "❌ Sai username hoặc password!";
+  }
+};
+
+function startCountdown(seconds) {
+  const countEl = document.getElementById('count');
+  let t = seconds;
+  countEl.textContent = t;
+  const iv = setInterval(() => {
+    t--;
+    if (t <= 0) {
+      clearInterval(iv);
+      document.getElementById('countPanel').style.display = 'none';
+      startHeart();
+    } else {
+      countEl.textContent = t;
+    }
+  }, 1000);
+}
+
+function startHeart() {
+  document.getElementById("heartSection").style.display = "block";
+  initHeartAnimation();
+}
+
+function initHeartAnimation() {
+  const canvas = document.getElementById('heartCanvas');
+  const ctx = canvas.getContext('2d');
+  
+  const resizeCanvas = () => {
+    const container = canvas.parentElement;
+    canvas.width = container.clientWidth;
+    canvas.height = container.clientHeight;
+  };
+  resizeCanvas();
+  
+  const width = canvas.width;
+  const height = canvas.height;
+  const rand = Math.random;
+
+  const heartPosition = (rad) => {
+    return [Math.pow(Math.sin(rad), 3), -(15 * Math.cos(rad) - 5 * Math.cos(2 * rad) - 2 * Math.cos(3 * rad) - Math.cos(4 * rad))];
+  };
+
+  const scaleAndTranslate = (pos, sx, sy, dx, dy) => {
+    return [dx + pos[0] * sx, dy + pos[1] * sy];
+  };
+
+  let pointsOrigin = [];
+  let dr = 0.15;
+  for (let i = 0; i < Math.PI * 2; i += dr) pointsOrigin.push(scaleAndTranslate(heartPosition(i), 210, 13, 0, 0));
+  for (let i = 0; i < Math.PI * 2; i += dr) pointsOrigin.push(scaleAndTranslate(heartPosition(i), 150, 9, 0, 0));
+  for (let i = 0; i < Math.PI * 2; i += dr) pointsOrigin.push(scaleAndTranslate(heartPosition(i), 90, 5, 0, 0));
+
+  const heartPointsCount = pointsOrigin.length;
+  let targetPoints = [];
+
+  const pulse = (kx, ky) => {
+    for (let i = 0; i < pointsOrigin.length; i++) {
+      targetPoints[i] = [];
+      targetPoints[i][0] = kx * pointsOrigin[i][0] + width / 2;
+      targetPoints[i][1] = ky * pointsOrigin[i][1] + height / 2;
+    }
+  };
+
+  const traceCount = 50;
+  const e = [];
+  for (let i = 0; i < heartPointsCount; i++) {
+    const x = rand() * width;
+    const y = rand() * height;
+    e[i] = {
+      vx: 0, vy: 0, R: 2, speed: rand() + 5,
+      q: ~~(rand() * heartPointsCount), D: 2 * (i % 2) - 1,
+      force: 0.2 * rand() + 0.7,
+      f: "hsla(0," + ~~(40 * rand() + 60) + "%," + ~~(60 * rand() + 20) + "%,.3)",
+      trace: []
+    };
+    for (let k = 0; k < traceCount; k++) e[i].trace[k] = { x: x, y: y };
+  }
+
+  const config = { traceK: 0.4, timeDelta: 0.01 };
+  let time = 0;
+
+  const loop = () => {
+    const n = -Math.cos(time);
+    pulse((1 + n) * 0.5, (1 + n) * 0.5);
+    time += ((Math.sin(time)) < 0 ? 9 : (n > 0.8) ? 0.2 : 1) * config.timeDelta;
+    
+    ctx.fillStyle = "rgba(0,0,0,.1)";
+    ctx.fillRect(0, 0, width, height);
+
+    for (let i = e.length; i--;) {
+      const u = e[i];
+      const q = targetPoints[u.q];
+      const dx = u.trace[0].x - q[0];
+      const dy = u.trace[0].y - q[1];
+      const length = Math.sqrt(dx * dx + dy * dy);
+
+      if (10 > length) {
+        if (0.95 < rand()) {
+          u.q = ~~(rand() * heartPointsCount);
+        } else {
+          if (0.99 < rand()) u.D *= -1;
+          u.q += u.D;
+          u.q %= heartPointsCount;
+          if (0 > u.q) u.q += heartPointsCount;
+        }
+      }
+
+      u.vx += -dx / length * u.speed;
+      u.vy += -dy / length * u.speed;
+      u.trace[0].x += u.vx;
+      u.trace[0].y += u.vy;
+      u.vx *= u.force;
+      u.vy *= u.force;
+
+      for (let k = 0; k < u.trace.length - 1;) {
+        const T = u.trace[k];
+        const N = u.trace[++k];
+        N.x -= config.traceK * (N.x - T.x);
+        N.y -= config.traceK * (N.y - T.y);
+      }
+
+      ctx.fillStyle = u.f;
+      for (let k = 0; k < u.trace.length; k++) {
+        ctx.fillRect(u.trace[k].x, u.trace[k].y, 1, 1);
+      }
+    }
+
+    requestAnimationFrame(loop);
+  };
+
+  loop();
+}
+</script>
+</body>
+</html>
+
